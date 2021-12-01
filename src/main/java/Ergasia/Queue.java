@@ -2,9 +2,9 @@ package Ergasia;
 
 public interface Queue<E> {
 
-      void enQueue(E elem);
+      void push(E elem);
 
-      E deQueue();
+      E pop();
 
       E first();
 

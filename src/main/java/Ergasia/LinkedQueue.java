@@ -15,7 +15,7 @@ public class LinkedQueue<E> implements Queue<E>{
       }
 
       @Override
-      public void enQueue(E elem) {
+      public void push(E elem) {
             Node<E> n = new Node<>();
             n.data = elem;
             n.next = null;
@@ -30,7 +30,7 @@ public class LinkedQueue<E> implements Queue<E>{
       }
 
       @Override
-      public E deQueue() {
+      public E pop() {
             if (isEmpty()) {
                   throw new NoSuchElementException();
             }

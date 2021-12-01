@@ -17,7 +17,7 @@ public class LinkedQueueTest {
             int count = 100000;
 
             for (int i = 0; i < count; i++) {
-                  q.enQueue(i);
+                  q.push(i);
                   assertTrue(q.size() == i + 1);
                   assertTrue(q.first() == 0);
             }
@@ -25,7 +25,7 @@ public class LinkedQueueTest {
             int current = 0;
             while (!q.isEmpty()) {
                   assertTrue(q.first() == current);
-                  assertTrue(q.deQueue() == current);
+                  assertTrue(q.pop() == current);
                   current++;
             }
 
