@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class CircularQueue<E> implements Queue<E> {
 
-      public static final int INITIAL_SIZE = 12;
+      public static final int INITIAL_SIZE = 64;
 
       private int front;                                                                                     //Points to the "frontmost" element in the queue.
       private int rear;                                                                                       //Points to the "backmost" element in the queue.
@@ -50,14 +50,15 @@ public class CircularQueue<E> implements Queue<E> {
                   throw new Exception("Queue is empty; no elements to dequeue.");
             }
 
+            System.out.println("Front is: " + front);
+            System.out.println("Rear is: " + rear);
+
             E dequeuedElement = Circular_Queue[front];
             Circular_Queue[front] = null;
             front = ( (front + 1) % Circular_Queue.length );
             current_size--;
 
             System.out.println("Removed number: " + dequeuedElement);
-            System.out.println("Front is: " + front);
-            System.out.println("Rear is: " + rear);
             System.out.println("Length is: " + Circular_Queue.length);
             if (ifQuarterFilled()) {
                   halfSize();
@@ -95,6 +96,11 @@ public class CircularQueue<E> implements Queue<E> {
       public void halfSize() {
             System.out.println("Division starts at: " + Circular_Queue.length);
             int new_length = (Circular_Queue.length / 2);
+
+            if (new_length % 2 != 0) {
+                  new_length++;
+            }
+
             E[] Temp_Circular_Q = (E[]) new Object[new_length];
 
             for (int i = front; i < (size() + front); i++) {
@@ -103,8 +109,8 @@ public class CircularQueue<E> implements Queue<E> {
 
             Circular_Queue = Temp_Circular_Q;
 
-            front = ( (front)  % Circular_Queue.length );
-            rear = ( (rear ) % Circular_Queue.length );
+            front = 0;
+            rear = ( rear - Circular_Queue.length);
 
             System.out.println("Division ends at: " + Circular_Queue.length);
       }
@@ -146,10 +152,13 @@ public class CircularQueue<E> implements Queue<E> {
             System.out.println(Q);
             Q.pop();
             System.out.println(Q);
+            System.out.println("Elements in Q: " + Q.current_size);
             Q.pop();
             System.out.println(Q);
+            System.out.println("Elements in Q: " + Q.current_size);
             Q.pop();
             System.out.println(Q);
+            System.out.println("Elements in Q: " + Q.current_size);
             Q.pop();
             System.out.println(Q);
 
