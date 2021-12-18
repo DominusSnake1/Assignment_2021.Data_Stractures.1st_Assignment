@@ -37,8 +37,9 @@ public class CircularQueue<E> implements Queue<E> {
             Circular_Queue[rear] = elem;
             current_size++;
 
-            System.out.println("Added number: " + elem);
-            System.out.println("Rear is: " + rear);
+            //System.out.println("Added number: " + elem);
+            //System.out.println("Rear is: " + rear);
+
             if (front == -1) {
                   front = 0;
             }
@@ -50,16 +51,17 @@ public class CircularQueue<E> implements Queue<E> {
                   throw new Exception("Queue is empty; no elements to dequeue.");
             }
 
-            System.out.println("Front is: " + front);
-            System.out.println("Rear is: " + rear);
+            //System.out.println("Front is: " + front);
+            //System.out.println("Rear is: " + rear);
 
             E dequeuedElement = Circular_Queue[front];
             Circular_Queue[front] = null;
             front = ( (front + 1) % Circular_Queue.length );
             current_size--;
 
-            System.out.println("Removed number: " + dequeuedElement);
-            System.out.println("Length is: " + Circular_Queue.length);
+            //System.out.println("Removed number: " + dequeuedElement);
+            //System.out.println("Length is: " + Circular_Queue.length);
+
             if (ifQuarterFilled()) {
                   halfSize();
             }
@@ -78,7 +80,7 @@ public class CircularQueue<E> implements Queue<E> {
       }
 
       public void doubleSize() {
-            System.out.println("Duplication starts at: " + Circular_Queue.length);
+            //System.out.println("Duplication starts at: " + Circular_Queue.length);
             int new_length = (Circular_Queue.length * 2);
             E[] Temp_Circular_Q = (E[]) new Object[new_length];
 
@@ -88,13 +90,13 @@ public class CircularQueue<E> implements Queue<E> {
 
             Circular_Queue = Temp_Circular_Q;
 
-            System.out.println("Duplication ends at: " + Circular_Queue.length);
+            //System.out.println("Duplication ends at: " + Circular_Queue.length);
       }
 
       public boolean ifQuarterFilled() {return (4 * current_size) < Circular_Queue.length;}
 
       public void halfSize() {
-            System.out.println("Division starts at: " + Circular_Queue.length);
+            //System.out.println("Division starts at: " + Circular_Queue.length);
             int new_length = (Circular_Queue.length / 2);
 
             if (new_length % 2 != 0) {
@@ -110,11 +112,12 @@ public class CircularQueue<E> implements Queue<E> {
             Circular_Queue = Temp_Circular_Q;
 
             front = 0;
-            rear = ( rear - Circular_Queue.length);
+            rear = current_size - 1;
 
-            System.out.println("Division ends at: " + Circular_Queue.length);
+            //System.out.println("Division ends at: " + Circular_Queue.length);
       }
 
+      /*
       public String toString() {
             return Arrays.toString(Circular_Queue);
       }
@@ -162,7 +165,18 @@ public class CircularQueue<E> implements Queue<E> {
             Q.pop();
             System.out.println(Q);
 
+            Q.push(17);
+            System.out.println(Q);
+            Q.push(18);
+            System.out.println(Q);
+
+            Q.pop();
+            System.out.println(Q);
+            System.out.println("Elements in Q: " + Q.current_size);
+            Q.pop();
+            System.out.println(Q);
             System.out.println("Elements in Q: " + Q.current_size);
 
       }
+      */
 }
