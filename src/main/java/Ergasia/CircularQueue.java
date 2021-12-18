@@ -1,131 +1,159 @@
 package Ergasia;
-import java.util.*;
-public class CircularQueue
-{
-      /*TODO
-          deite ti na kanoume to to/thn size
-          Epektasimotita KLP H ama 8a xreiastoume allh metavliti gia elements kai allh gia queue length
-      */
-      private int Head;//Points to the "frontmost" element in the queue
-      private int Tail;//Points to the "backmost" element in the queue
-      private int size;
-      private ArrayList<Integer> Queue = new ArrayList<Integer>();
+
+import java.util.Arrays;
+
+public class CircularQueue<E> implements Queue<E> {
+
+      public static final int INITIAL_SIZE = 12;
+
+      private int front;                                                                                     //Points to the "frontmost" element in the queue.
+      private int rear;                                                                                       //Points to the "backmost" element in the queue.
+      private int current_size;                                                                        // Number of elements in the queue.
+      private E[] Circular_Queue;
 
       //Constructor
       public CircularQueue() {
-            this.Head = -1;
-            this.Tail = -1;
-            this.size = 0;
+            front = -1;
+            rear = -1;
+            current_size = 0;
+            Circular_Queue = (E[]) new Object[INITIAL_SIZE];
       }
 
+      @Override
+      public boolean isEmpty() {return current_size == 0;}
 
-      public void push(int Data) {
+      public boolean isFull() {return (current_size >= Circular_Queue.length);}
 
-            //Condition if queue is full.
-            if((Head == 0 && Tail == size - 1) || (Tail == (Head - 1) % (size - 1)))
-            {
-                  System.out.println("Queue is full");
+      @Override
+      public int size() {return current_size;}
+
+      @Override
+      public void push(E elem) {
+            if (isFull()) {
+                  doubleSize();
             }
 
-            //Condition for empty queue.
-            else if(Head == -1)
-            {
-                  Head = 0;
-                  Tail = 0;
-                  Queue.add(Tail, Data);
-                  size++;
-            }
+            rear = ( (rear + 1) % Circular_Queue.length );
+            Circular_Queue[rear] = elem;
+            current_size++;
 
-            else if (Tail == (size - 1 ) && Head != 0)
-            {
-                  Tail = 0;
-                  Queue.set(Tail, Data);
-            }
-
-            else
-            {
-                  Tail = (Tail + 1);
-                  //Adding a new element
-                  if(Head <= Tail)
-                  {
-                        Queue.add(Tail, Data);
-                        size++;
-                  }
-
-                  //Else updating old value
-                  else
-                  {
-                        Queue.set(Tail, Data);
-                  }
+            System.out.println("Added number: " + elem);
+            System.out.println("Rear is: " + rear);
+            if (front == -1) {
+                  front = 0;
             }
       }
 
-      public int pop()
-      {
-            int temp;
-
-            // Condition for empty queue.
-            isEmpty();
-
-            temp = Queue.get(Head);
-
-            // Condition for only one element
-            if(Head == Tail)
-            {
-                  Head = -1;
-                  Tail = -1;
+      @Override
+      public E pop() throws Exception {
+            if (isEmpty()) {
+                  throw new Exception("Queue is empty; no elements to dequeue.");
             }
 
-            else if(Head == size - 1)
-            {
-                  Head = 0;
-            }
-            else
-            {
-                  Head = Head + 1;
+            E dequeuedElement = Circular_Queue[front];
+            Circular_Queue[front] = null;
+            front = ( (front + 1) % Circular_Queue.length );
+            current_size--;
+
+            System.out.println("Removed number: " + dequeuedElement);
+            System.out.println("Front is: " + front);
+            System.out.println("Rear is: " + rear);
+            System.out.println("Length is: " + Circular_Queue.length);
+            if (ifQuarterFilled()) {
+                  halfSize();
             }
 
-            //Returns the popped element
-            return temp;
+            return dequeuedElement;
       }
 
-      public boolean isEmpty()
-      {
-            if(Head == -1 && Tail == -1)
-            {
-                  System.out.println("Queue is empty.");
-                  return true;
-            }
-            else return false;
+      @Override
+      public E first() {return Circular_Queue[front];}
+
+      @Override
+      public void clear() {
+            front = -1;
+            rear = -1;
+            current_size = 0;
       }
 
-      public int size()
-      {
-            if(isEmpty())
-            {
-                  size = 0;
-            }
-            else
-            {
-                  size = Head > Tail ? (size - Head + Tail + 1) : (Tail - Head + 1);
+      public void doubleSize() {
+            System.out.println("Duplication starts at: " + Circular_Queue.length);
+            int new_length = (Circular_Queue.length * 2);
+            E[] Temp_Circular_Q = (E[]) new Object[new_length];
+
+            for (int i = 0; i < current_size; i++) {
+                  Temp_Circular_Q[i] = Circular_Queue[i];
             }
 
-            return size;
+            Circular_Queue = Temp_Circular_Q;
+
+            System.out.println("Duplication ends at: " + Circular_Queue.length);
       }
 
-      public void first()
-      {
-            if(!isEmpty())
-            {
-                  System.out.println("The first element is: " + Queue.get(Head));
+      public boolean ifQuarterFilled() {return (4 * current_size) < Circular_Queue.length;}
+
+      public void halfSize() {
+            System.out.println("Division starts at: " + Circular_Queue.length);
+            int new_length = (Circular_Queue.length / 2);
+            E[] Temp_Circular_Q = (E[]) new Object[new_length];
+
+            for (int i = front; i < (size() + front); i++) {
+                  Temp_Circular_Q[i - front] = Circular_Queue[i];
             }
-            else System.out.println("Queue is empty.");
+
+            Circular_Queue = Temp_Circular_Q;
+
+            front = ( (front)  % Circular_Queue.length );
+            rear = ( (rear ) % Circular_Queue.length );
+
+            System.out.println("Division ends at: " + Circular_Queue.length);
       }
 
-      public void clear()
-      {
-            this.Head = -1;
-            this.Tail = -1;
-            this.size = 0;
+      public String toString() {
+            return Arrays.toString(Circular_Queue);
+      }
+
+
+      public static void main(String[] args) throws Exception {
+            CircularQueue<Integer> Q = new CircularQueue<>();
+
+            System.out.println("Elements in Q: " + Q.current_size);
+            System.out.println(Q);
+
+            Q.push(10);
+            System.out.println(Q);
+            Q.push(11);
+            System.out.println(Q);
+            Q.push(12);
+            System.out.println(Q);
+            Q.push(13);
+            System.out.println(Q);
+            Q.push(14);
+            System.out.println(Q);
+            Q.push(15);
+            System.out.println(Q);
+            Q.push(16);
+            System.out.println(Q);
+
+            System.out.println("Elements in Q: " + Q.current_size);
+            System.out.println(Q);
+
+            Q.pop();
+            System.out.println(Q);
+            Q.pop();
+            System.out.println(Q);
+            Q.pop();
+            System.out.println(Q);
+            Q.pop();
+            System.out.println(Q);
+            Q.pop();
+            System.out.println(Q);
+            Q.pop();
+            System.out.println(Q);
+            Q.pop();
+            System.out.println(Q);
+
+            System.out.println("Elements in Q: " + Q.current_size);
+
       }
 }

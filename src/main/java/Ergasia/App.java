@@ -2,8 +2,9 @@ package Ergasia;
 
 public class App {
 
-      public static void main(String[] args) {
+      public static void main(String[] args) throws Exception {
 
+            /*
             Queue<Integer> q = new LinkedQueue<>();
 
             for (int i = 0; i < 100; i++) {
@@ -14,5 +15,8 @@ public class App {
             while (!q.isEmpty()) {
                   System.out.println("Next element served from queue: " + q.pop());
             }
+             */
+
+
       }
 }

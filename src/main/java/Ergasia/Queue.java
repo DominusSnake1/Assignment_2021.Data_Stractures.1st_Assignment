@@ -2,16 +2,15 @@ package Ergasia;
 
 public interface Queue<E> {
 
-      void push(E elem);
+      void push(E elem) throws Exception;
 
-      E pop();
+      E pop() throws Exception;
 
-      E first();
+      E first() throws Exception;
 
       boolean isEmpty();
 
       int size();
 
       void clear();
-
 }
