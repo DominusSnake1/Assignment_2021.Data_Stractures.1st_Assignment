@@ -93,7 +93,7 @@ public class CircularQueue<E> implements Queue<E> {
             //System.out.println("Duplication ends at: " + Circular_Queue.length);
       }
 
-      public boolean ifQuarterFilled() {return (4 * current_size) < Circular_Queue.length;}
+      public boolean ifQuarterFilled() {return (4 * current_size) <= Circular_Queue.length;}
 
       public void halfSize() {
             //System.out.println("Division starts at: " + Circular_Queue.length);
@@ -117,66 +117,12 @@ public class CircularQueue<E> implements Queue<E> {
             //System.out.println("Division ends at: " + Circular_Queue.length);
       }
 
-      /*
+      public int getCircular_QueueLength() {return Circular_Queue.length;}
+
+
+      @Override
       public String toString() {
             return Arrays.toString(Circular_Queue);
       }
 
-
-      public static void main(String[] args) throws Exception {
-            CircularQueue<Integer> Q = new CircularQueue<>();
-
-            System.out.println("Elements in Q: " + Q.current_size);
-            System.out.println(Q);
-
-            Q.push(10);
-            System.out.println(Q);
-            Q.push(11);
-            System.out.println(Q);
-            Q.push(12);
-            System.out.println(Q);
-            Q.push(13);
-            System.out.println(Q);
-            Q.push(14);
-            System.out.println(Q);
-            Q.push(15);
-            System.out.println(Q);
-            Q.push(16);
-            System.out.println(Q);
-
-            System.out.println("Elements in Q: " + Q.current_size);
-            System.out.println(Q);
-
-            Q.pop();
-            System.out.println(Q);
-            Q.pop();
-            System.out.println(Q);
-            Q.pop();
-            System.out.println(Q);
-            Q.pop();
-            System.out.println(Q);
-            System.out.println("Elements in Q: " + Q.current_size);
-            Q.pop();
-            System.out.println(Q);
-            System.out.println("Elements in Q: " + Q.current_size);
-            Q.pop();
-            System.out.println(Q);
-            System.out.println("Elements in Q: " + Q.current_size);
-            Q.pop();
-            System.out.println(Q);
-
-            Q.push(17);
-            System.out.println(Q);
-            Q.push(18);
-            System.out.println(Q);
-
-            Q.pop();
-            System.out.println(Q);
-            System.out.println("Elements in Q: " + Q.current_size);
-            Q.pop();
-            System.out.println(Q);
-            System.out.println("Elements in Q: " + Q.current_size);
-
-      }
-      */
 }
