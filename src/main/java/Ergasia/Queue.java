@@ -12,5 +12,5 @@ public interface Queue<E> {
 
       int size();
 
-      void clear();
+    abstract void clear();
 }

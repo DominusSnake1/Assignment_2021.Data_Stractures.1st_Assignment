@@ -76,4 +76,27 @@ public class CircularQueueTest {
             }
             assertTrue(Q.isEmpty());
       }
+      @Test
+      public void Test3() throws Exception
+      {
+            CircularQueue<Integer> Q = new CircularQueue<>();
+
+            assertTrue(Q.isEmpty());
+
+            int count = 63;
+
+            for (int i = 0; i < count; i++)
+            {
+                  Q.push(i);
+            }
+            Q.pop();
+            Q.pop();
+            Q.push(64);
+            Q.push(65);
+
+            assertEquals(0, Q.getRear());
+            assertTrue(Q.getFront()>0);
+            assertTrue(Q.getFront()<=64);
+            assertEquals(64, Q.getCircular_QueueLength());
+      }
 }

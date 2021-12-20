@@ -117,8 +117,15 @@ public class CircularQueue<E> implements Queue<E> {
             //System.out.println("Division ends at: " + Circular_Queue.length);
       }
 
-      public int getCircular_QueueLength() {return Circular_Queue.length;}
+      public int getFront() {
+            return front;
+      }
 
+      public int getRear() {
+            return rear;
+      }
+
+      public int getCircular_QueueLength() {return Circular_Queue.length;}
 
       @Override
       public String toString() {
